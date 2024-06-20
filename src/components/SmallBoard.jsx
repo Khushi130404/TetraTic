@@ -2,18 +2,16 @@ import React, { useState, useRef } from "react";
 import styles from "./SmallBoard.module.css";
 
 function SmallBoard() {
-  const initialBoard = [
-    ["Q", "Q", "Q"],
-    ["Q", "Q", "Q"],
-    ["Q", "Q", "Q"],
-  ];
+  const initialBoard = Array.from({ length: 3 }, () =>
+    Array.from({ length: 3 }, () => null)
+  );
   const [board, setBoard] = useState(initialBoard);
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const boardRef = useRef(null);
   const [winner, setWinner] = useState(null);
 
   const handleClick = (row, col) => {
-    if (board[row][col] !== "Q") {
+    if (board[row][col] !== null || winner) {
       return;
     }
 
@@ -23,7 +21,6 @@ function SmallBoard() {
     setBoard(newBoard);
 
     if (checkRow(newBoard)) {
-      // alert(currentPlayer + " won");
       while (boardRef.current.firstChild) {
         boardRef.current.removeChild(boardRef.current.firstChild);
       }
@@ -39,7 +36,7 @@ function SmallBoard() {
 
   const checkRow = (board) => {
     for (let r = 0; r < 3; r++) {
-      if (board[r][0] === "Q") {
+      if (board[r][0] === null) {
         continue;
       }
       let count = 1;
