@@ -1,7 +1,7 @@
-import SmallBoard from "./components/SmallBoard";
+import MainBoard from "./components/MainBoard";
 
 function App() {
-  return <SmallBoard></SmallBoard>;
+  return <MainBoard></MainBoard>;
 }
 
 export default App;
