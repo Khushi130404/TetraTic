@@ -3,7 +3,7 @@ import styles from "./SmallBoard.module.css";
 
 function SmallBoard() {
   const initialBoard = Array.from({ length: 3 }, () =>
-    Array.from({ length: 3 }, () => " ")
+    Array.from({ length: 3 }, () => "")
   );
   const [board, setBoard] = useState(initialBoard);
   const [currentPlayer, setCurrentPlayer] = useState("X");
@@ -11,7 +11,7 @@ function SmallBoard() {
   const [winner, setWinner] = useState(null);
 
   const handleClick = (row, col) => {
-    if (board[row][col] !== " " || winner) {
+    if (board[row][col] !== "" || winner) {
       return;
     }
 
@@ -35,15 +35,43 @@ function SmallBoard() {
   };
 
   const checkWin = (board) => {
-    if (checkRow(board) || checkCol(board)) {
+    if (checkRow(board) || checkCol(board) || checkCross(board)) {
       return true;
+    }
+    return false;
+  };
+
+  const checkCross = (board) => {
+    if (board[0][0] !== "") {
+      let count = 1;
+      for (let i = 1; i < 3; i++) {
+        if (board[i][i] !== board[0][0]) {
+          break;
+        }
+        count++;
+      }
+      if (count === 3) {
+        return true;
+      }
+    }
+    if (board[0][2] !== "") {
+      let count = 1;
+      for (let i = 1; i < 3; i++) {
+        if (board[i][2 - i] !== board[0][2]) {
+          break;
+        }
+        count++;
+      }
+      if (count === 3) {
+        return true;
+      }
     }
     return false;
   };
 
   const checkRow = (board) => {
     for (let r = 0; r < 3; r++) {
-      if (board[r][0] === " ") {
+      if (board[r][0] === "") {
         continue;
       }
       let count = 1;
@@ -62,7 +90,7 @@ function SmallBoard() {
 
   const checkCol = (board) => {
     for (let c = 0; c < 3; c++) {
-      if (board[0][c] === " ") {
+      if (board[0][c] === "") {
         continue;
       }
       let count = 1;
