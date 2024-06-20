@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./SmallBoard.module.css";
 
 function SmallBoard() {
@@ -9,6 +9,8 @@ function SmallBoard() {
   ];
   const [board, setBoard] = useState(initialBoard);
   const [currentPlayer, setCurrentPlayer] = useState("X");
+  const boardRef = useRef(null);
+  const [winner, setWinner] = useState(null);
 
   const handleClick = (row, col) => {
     if (board[row][col] !== "Q") {
@@ -20,10 +22,18 @@ function SmallBoard() {
     newBoard[row][col] = currentPlayer;
     setBoard(newBoard);
 
-    setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
-
     if (checkRow(newBoard)) {
-      alert(currentPlayer + " won");
+      // alert(currentPlayer + " won");
+      while (boardRef.current.firstChild) {
+        boardRef.current.removeChild(boardRef.current.firstChild);
+      }
+
+      const img = document.createElement("img");
+      img.src = "/cross-svgrepo-com.svg";
+      img.alt = "Cross SVG";
+      boardRef.current.appendChild(img);
+    } else {
+      setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
     }
   };
 
@@ -47,7 +57,7 @@ function SmallBoard() {
   };
 
   return (
-    <div className={styles.board}>
+    <div className={styles.board} ref={boardRef} src={winner}>
       {board.map((row, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
           {row.map((cell, col) => (
