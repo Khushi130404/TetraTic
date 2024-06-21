@@ -113,7 +113,11 @@ function MainBoard() {
       {board.map((row, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
           {row.map((cell, col) => (
-            <SmallBoard key={col}></SmallBoard>
+            <SmallBoard
+              key={col}
+              currentPlayer={currentPlayer}
+              setCurrentPlayer={setCurrentPlayer}
+            ></SmallBoard>
           ))}
         </div>
       ))}

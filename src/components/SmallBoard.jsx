@@ -1,12 +1,11 @@
 import React, { useState, useRef } from "react";
 import styles from "./SmallBoard.module.css";
 
-function SmallBoard() {
+function SmallBoard({ currentPlayer, setCurrentPlayer }) {
   const initialBoard = Array.from({ length: 3 }, () =>
     Array.from({ length: 3 }, () => "")
   );
   const [board, setBoard] = useState(initialBoard);
-  const [currentPlayer, setCurrentPlayer] = useState("X");
   const boardRef = useRef(null);
   const [winner, setWinner] = useState(null);
 
