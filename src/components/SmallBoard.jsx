@@ -43,10 +43,11 @@ function SmallBoard({
       img.className = styles.centeredImage;
       boardRef.current.appendChild(img);
       setMainBoard(rowIndex, colIndex);
+      setCurrentSmallBoard(row, col, true);
     } else {
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
+      setCurrentSmallBoard(row, col, false);
     }
-    setCurrentSmallBoard(row, col);
   };
 
   const checkWin = (board) => {

@@ -44,8 +44,8 @@ function MainBoard() {
     }
   };
 
-  const setCurrentSmallBoard = (row, col) => {
-    if (board[row][col] !== "") {
+  const setCurrentSmallBoard = (row, col, flag) => {
+    if (board[row][col] !== "" || flag) {
       setCurrentBoard(trueBoard);
     } else {
       const tempBoard = falseBoard.slice();
