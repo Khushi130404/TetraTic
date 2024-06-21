@@ -1,46 +1,32 @@
 import React, { useState, useRef } from "react";
-import styles from "./SmallBoard.module.css";
+import SmallBoard from "./SmallBoard";
+import styles from "./MainBoard.module.css";
 
-function SmallBoard({
-  currentPlayer,
-  setCurrentPlayer,
-  setMainBoard,
-  rowIndex,
-  colIndex,
-}) {
+function MainBoard() {
   const initialBoard = Array.from({ length: 3 }, () =>
     Array.from({ length: 3 }, () => "")
   );
   const [board, setBoard] = useState(initialBoard);
+  const [currentPlayer, setCurrentPlayer] = useState("X");
   const boardRef = useRef(null);
   const [winner, setWinner] = useState(null);
 
-  const handleClick = (row, col) => {
-    if (board[row][col] !== "" || winner) {
-      return;
-    }
-
+  const handleMainBoard = (row, col) => {
     const newBoard = board.slice();
     newBoard[row] = board[row].slice();
     newBoard[row][col] = currentPlayer;
     setBoard(newBoard);
 
+    console.log(row + "," + col);
     if (checkWin(newBoard)) {
       while (boardRef.current.firstChild) {
         boardRef.current.removeChild(boardRef.current.firstChild);
       }
 
       const img = document.createElement("img");
-      if (currentPlayer === "X") {
-        img.src = "/cross.svg";
-        img.alt = "X Wins";
-      } else {
-        img.src = "/circle.svg";
-        img.alt = "O Wins";
-      }
-      img.className = styles.centeredImage;
+      img.src = "/cross.svg";
+      img.alt = "Cross Win";
       boardRef.current.appendChild(img);
-      setMainBoard(rowIndex, colIndex);
     } else {
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
     }
@@ -124,9 +110,14 @@ function SmallBoard({
       {board.map((row, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
           {row.map((cell, col) => (
-            <button key={col} onClick={() => handleClick(rowIndex, col)}>
-              {cell}
-            </button>
+            <SmallBoard
+              key={col}
+              currentPlayer={currentPlayer}
+              setCurrentPlayer={setCurrentPlayer}
+              setMainBoard={handleMainBoard}
+              rowIndex={rowIndex}
+              colIndex={col}
+            ></SmallBoard>
           ))}
         </div>
       ))}
@@ -134,4 +125,4 @@ function SmallBoard({
   );
 }
 
-export default SmallBoard;
+export default MainBoard;
