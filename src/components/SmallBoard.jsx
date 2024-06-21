@@ -1,7 +1,13 @@
 import React, { useState, useRef } from "react";
 import styles from "./SmallBoard.module.css";
 
-function SmallBoard({ currentPlayer, setCurrentPlayer }) {
+function SmallBoard({
+  currentPlayer,
+  setCurrentPlayer,
+  setMainBoard,
+  rowIndex,
+  colIndex,
+}) {
   const initialBoard = Array.from({ length: 3 }, () =>
     Array.from({ length: 3 }, () => "")
   );
@@ -34,6 +40,7 @@ function SmallBoard({ currentPlayer, setCurrentPlayer }) {
       }
       img.className = styles.centeredImage;
       boardRef.current.appendChild(img);
+      setMainBoard(rowIndex, colIndex);
     } else {
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
     }

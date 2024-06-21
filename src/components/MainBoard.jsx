@@ -11,16 +11,13 @@ function MainBoard() {
   const boardRef = useRef(null);
   const [winner, setWinner] = useState(null);
 
-  const handleClick = (row, col) => {
-    if (board[row][col] !== "" || winner) {
-      return;
-    }
-
+  const handleMainBoard = (row, col) => {
     const newBoard = board.slice();
     newBoard[row] = board[row].slice();
     newBoard[row][col] = currentPlayer;
     setBoard(newBoard);
 
+    console.log(row + "," + col);
     if (checkWin(newBoard)) {
       while (boardRef.current.firstChild) {
         boardRef.current.removeChild(boardRef.current.firstChild);
@@ -117,6 +114,9 @@ function MainBoard() {
               key={col}
               currentPlayer={currentPlayer}
               setCurrentPlayer={setCurrentPlayer}
+              setMainBoard={handleMainBoard}
+              rowIndex={rowIndex}
+              colIndex={col}
             ></SmallBoard>
           ))}
         </div>
