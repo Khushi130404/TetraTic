@@ -124,7 +124,7 @@ function SmallBoard({
   };
 
   return (
-    <div className={styles.board} ref={boardRef} src={winner}>
+    <div className={(styles.board)} ref={boardRef} src={winner}>
       {board.map((row, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
           {row.map((cell, col) => (
