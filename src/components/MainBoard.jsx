@@ -130,7 +130,7 @@ function MainBoard() {
 
   return (
     <div className={styles.board} ref={boardRef} src={winner}>
-      <h2 className="card-title">Ultimate Tic-Tac-Toe</h2>
+      <h2>Ultimate Tic-Tac-Toe</h2>
       <br></br>
       {board.map((row, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
