@@ -6,10 +6,20 @@ function MainBoard() {
   const initialBoard = Array.from({ length: 3 }, () =>
     Array.from({ length: 3 }, () => "")
   );
+
+  const trueBoard = Array.from({ length: 3 }, () =>
+    Array.from({ length: 3 }, () => true)
+  );
+
+  const falseBoard = Array.from({ length: 3 }, () =>
+    Array.from({ length: 3 }, () => false)
+  );
+
   const [board, setBoard] = useState(initialBoard);
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const boardRef = useRef(null);
   const [winner, setWinner] = useState(null);
+  const [currentBoard, setCurrentBoard] = useState(trueBoard);
 
   const handleMainBoard = (row, col) => {
     const newBoard = board.slice();
@@ -17,18 +27,30 @@ function MainBoard() {
     newBoard[row][col] = currentPlayer;
     setBoard(newBoard);
 
-    console.log(row + "," + col);
     if (checkWin(newBoard)) {
       while (boardRef.current.firstChild) {
         boardRef.current.removeChild(boardRef.current.firstChild);
       }
-
       const img = document.createElement("img");
-      img.src = "/cross.svg";
-      img.alt = "Cross Win";
+      if (currentPlayer === "X") {
+        img.src = "/cross.svg";
+        img.alt = "X Wins";
+      } else {
+        img.src = "/circle.svg";
+        img.alt = "O Wins";
+      }
+      img.className = styles.centeredImage;
       boardRef.current.appendChild(img);
+    }
+  };
+
+  const setCurrentSmallBoard = (row, col, flag) => {
+    if (board[row][col] !== "" || flag) {
+      setCurrentBoard(trueBoard);
     } else {
-      setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
+      const tempBoard = falseBoard.slice();
+      tempBoard[row][col] = true;
+      setCurrentBoard(tempBoard);
     }
   };
 
@@ -117,6 +139,8 @@ function MainBoard() {
               setMainBoard={handleMainBoard}
               rowIndex={rowIndex}
               colIndex={col}
+              currentBoard={currentBoard[rowIndex][col]}
+              setCurrentSmallBoard={setCurrentSmallBoard}
             ></SmallBoard>
           ))}
         </div>

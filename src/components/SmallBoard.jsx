@@ -7,6 +7,8 @@ function SmallBoard({
   setMainBoard,
   rowIndex,
   colIndex,
+  currentBoard,
+  setCurrentSmallBoard,
 }) {
   const initialBoard = Array.from({ length: 3 }, () =>
     Array.from({ length: 3 }, () => "")
@@ -16,7 +18,7 @@ function SmallBoard({
   const [winner, setWinner] = useState(null);
 
   const handleClick = (row, col) => {
-    if (board[row][col] !== "" || winner) {
+    if (board[row][col] !== "" || winner || !currentBoard) {
       return;
     }
 
@@ -41,8 +43,10 @@ function SmallBoard({
       img.className = styles.centeredImage;
       boardRef.current.appendChild(img);
       setMainBoard(rowIndex, colIndex);
+      setCurrentSmallBoard(row, col, true);
     } else {
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
+      setCurrentSmallBoard(row, col, false);
     }
   };
 
