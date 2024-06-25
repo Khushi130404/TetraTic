@@ -4,6 +4,7 @@ import styles from "./MainBoard.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function MainBoard() {
+
   const initialBoard = Array.from({ length: 3 }, () =>
     Array.from({ length: 3 }, () => "")
   );

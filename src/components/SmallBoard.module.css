@@ -22,27 +22,23 @@ button {
   display: flex;
   opacity: 0.6;
   align-items: center;
+  background-color: #1e0342;
   justify-content: center;
   text-align: center;
   border: 3px solid transparent;
   font-weight: 700;
-  background-color: #1E0342;
 }
 
-
 button:hover {
-  background-color: #1E0342;
-  opacity: 0.75;
+  opacity: 0.85;
   border-radius: 8px;
 }
 
 button:focus,
-button:focus-visible 
-{
-  border: 2px solid white;
+button:focus-visible {
+  border: 2px solid transparent;
   border-radius: 8px;
-  background-color: #1E0342;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .centeredImage {
@@ -52,4 +48,12 @@ button:focus-visible
   transform: translate(-50%, -50%);
   width: 90px;
   height: 90px;
+}
+
+.active {
+  opacity: 0.75;
+}
+
+.inactive {
+  opacity: 0.5;
 }
