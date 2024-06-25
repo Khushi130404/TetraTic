@@ -14,7 +14,6 @@
 }
 
 button {
-  padding: 10px;
   font-size: 25px;
   cursor: pointer;
   width: 43px;
@@ -25,9 +24,8 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 1px solid transparent;
-  border-radius: 20px;
-  font-weight: 500;
+  border: 3px solid transparent;
+  font-weight: 700;
   background-color: #1E0342;
 }
 
@@ -35,6 +33,16 @@ button {
 button:hover {
   background-color: #1E0342;
   opacity: 0.8;
+  border-radius: 8px;
+}
+
+button:focus,
+button:focus-visible 
+{
+  border: 2px solid white;
+  border-radius: 8px;
+  background-color: #1E0342;
+  opacity: 0.9;
 }
 
 .centeredImage {
