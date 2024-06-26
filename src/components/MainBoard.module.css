@@ -1,13 +1,22 @@
 .board {
-  gap: 10px;
+  gap: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h2{
+  font-weight: 800;
+  color: #1E0342;
 }
 
 .row {
   display: flex;
-  gap: 10px;
+  gap: 5px;
 }
 
 .centeredImage {
@@ -15,6 +24,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-bottom: 20px;
   width: 200px;
   height: 200px;
 }

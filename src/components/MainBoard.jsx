@@ -1,8 +1,10 @@
 import React, { useState, useRef } from "react";
 import SmallBoard from "./SmallBoard";
 import styles from "./MainBoard.module.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function MainBoard() {
+
   const initialBoard = Array.from({ length: 3 }, () =>
     Array.from({ length: 3 }, () => "")
   );
@@ -129,6 +131,8 @@ function MainBoard() {
 
   return (
     <div className={styles.board} ref={boardRef} src={winner}>
+      <h2>Ultimate Tic-Tac-Toe</h2>
+      <br></br>
       {board.map((row, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
           {row.map((cell, col) => (

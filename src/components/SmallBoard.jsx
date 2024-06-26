@@ -128,7 +128,11 @@ function SmallBoard({
       {board.map((row, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
           {row.map((cell, col) => (
-            <button key={col} onClick={() => handleClick(rowIndex, col)}>
+            <button
+              key={col}
+              onClick={() => handleClick(rowIndex, col)}
+              className={currentBoard ? styles.active : styles.inactive}
+            >
               {cell}
             </button>
           ))}
