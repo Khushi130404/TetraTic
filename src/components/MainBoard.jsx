@@ -21,6 +21,8 @@ function MainBoard() {
   const boardRef = useRef(null);
   const [winner, setWinner] = useState(null);
   const [currentBoard, setCurrentBoard] = useState(trueBoard);
+  const playerX = useRef(null);
+  const playerO = useRef(null);
 
   const handleMainBoard = (row, col) => {
     const newBoard = board.slice();
@@ -42,6 +44,8 @@ function MainBoard() {
       }
       img.className = styles.centeredImage;
       boardRef.current.appendChild(img);
+      playerX.current.removeChild(playerX.current.firstChild);
+      playerO.current.removeChild(playerO.current.firstChild);
     }
   };
 
@@ -130,7 +134,7 @@ function MainBoard() {
 
   return (
     <div>
-      <div className={styles.playerX}>
+      <div className={styles.playerX} ref={playerX}>
         <img
           src="cross.svg"
           className={
@@ -158,7 +162,7 @@ function MainBoard() {
           </div>
         ))}
       </div>
-      <div className={styles.playerY}>
+      <div className={styles.playerO} ref={playerO}>
         <img
           src="circle.svg"
           className={
