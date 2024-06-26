@@ -9,9 +9,29 @@
   transform: translate(-50%, -50%);
 }
 
-h2{
+.playerX {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+}
+
+.playerY {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+}
+
+h2 {
   font-weight: 800;
-  color: #1E0342;
+  color: #1e0342;
 }
 
 .row {
@@ -27,4 +47,14 @@ h2{
   margin-bottom: 20px;
   width: 200px;
   height: 200px;
+}
+
+.currentPlayer
+{
+  opacity: 1;
+}
+
+.nonplayer
+{
+  opacity: 0.5;
 }

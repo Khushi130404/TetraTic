@@ -4,7 +4,6 @@ import styles from "./MainBoard.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function MainBoard() {
-
   const initialBoard = Array.from({ length: 3 }, () =>
     Array.from({ length: 3 }, () => "")
   );
@@ -130,25 +129,43 @@ function MainBoard() {
   };
 
   return (
-    <div className={styles.board} ref={boardRef} src={winner}>
-      <h2>Ultimate Tic-Tac-Toe</h2>
-      <br></br>
-      {board.map((row, rowIndex) => (
-        <div className={styles.row} key={rowIndex}>
-          {row.map((cell, col) => (
-            <SmallBoard
-              key={col}
-              currentPlayer={currentPlayer}
-              setCurrentPlayer={setCurrentPlayer}
-              setMainBoard={handleMainBoard}
-              rowIndex={rowIndex}
-              colIndex={col}
-              currentBoard={currentBoard[rowIndex][col]}
-              setCurrentSmallBoard={setCurrentSmallBoard}
-            ></SmallBoard>
-          ))}
-        </div>
-      ))}
+    <div>
+      <div className={styles.playerX}>
+        <img
+          src="cross.svg"
+          className={
+            currentPlayer === "X" ? styles.currentplayer : styles.nonplayer
+          }
+        ></img>
+      </div>
+      <div className={styles.board} ref={boardRef} src={winner}>
+        <h2>Ultimate Tic-Tac-Toe</h2>
+        <br></br>
+        {board.map((row, rowIndex) => (
+          <div className={styles.row} key={rowIndex}>
+            {row.map((cell, col) => (
+              <SmallBoard
+                key={col}
+                currentPlayer={currentPlayer}
+                setCurrentPlayer={setCurrentPlayer}
+                setMainBoard={handleMainBoard}
+                rowIndex={rowIndex}
+                colIndex={col}
+                currentBoard={currentBoard[rowIndex][col]}
+                setCurrentSmallBoard={setCurrentSmallBoard}
+              ></SmallBoard>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className={styles.playerY}>
+        <img
+          src="circle.svg"
+          className={
+            currentPlayer === "O" ? styles.currentplayer : styles.nonplayer
+          }
+        ></img>
+      </div>
     </div>
   );
 }
