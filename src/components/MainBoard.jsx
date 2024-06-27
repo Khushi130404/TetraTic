@@ -40,6 +40,8 @@ function MainBoard() {
       setOver(true);
       playerX.current.removeChild(playerX.current.firstChild);
       playerO.current.removeChild(playerO.current.firstChild);
+    } else if (checkTie(board)) {
+      // Here
     }
   };
 
@@ -58,6 +60,17 @@ function MainBoard() {
       return true;
     }
     return false;
+  };
+
+  const checkTie = (board) => {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (board[i][j] == "") {
+          return false;
+        }
+      }
+    }
+    return true;
   };
 
   const checkCross = (board) => {
