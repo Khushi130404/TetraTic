@@ -1,9 +1,7 @@
 import MainBoard from "./components/MainBoard";
-import Tie from "./components/Tie";
 
 function App() {
-  // return <MainBoard></MainBoard>;
-  return <Tie></Tie>;
+  return <MainBoard></MainBoard>;
 }
 
 export default App;

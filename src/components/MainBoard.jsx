@@ -3,7 +3,7 @@ import SmallBoard from "./SmallBoard";
 import styles from "./MainBoard.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Win from "./Win";
-import ReactDOM from "react-dom";
+import Tie from "./Tie";
 
 function MainBoard() {
   const initialBoard = Array.from({ length: 3 }, () =>
@@ -26,6 +26,7 @@ function MainBoard() {
   const playerX = useRef(null);
   const playerO = useRef(null);
   const [over, setOver] = useState(false);
+  const [tie, setTie] = useState(false);
 
   const handleMainBoard = (row, col) => {
     const newBoard = board.slice();
@@ -41,7 +42,13 @@ function MainBoard() {
       playerX.current.removeChild(playerX.current.firstChild);
       playerO.current.removeChild(playerO.current.firstChild);
     } else if (checkTie(board)) {
-      // Here
+      while (boardRef.current.children.length > 0) {
+        boardRef.current.removeChild(boardRef.current.children[0]);
+      }
+      // console.log("Tie");
+      setTie(true);
+      playerX.current.removeChild(playerX.current.firstChild);
+      playerO.current.removeChild(playerO.current.firstChild);
     }
   };
 
@@ -56,16 +63,13 @@ function MainBoard() {
   };
 
   const checkWin = (board) => {
-    if (checkRow(board) || checkCol(board) || checkCross(board)) {
-      return true;
-    }
-    return false;
+    return checkRow(board) || checkCol(board) || checkCross(board);
   };
 
   const checkTie = (board) => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (board[i][j] == "") {
+        if (board[i][j] === "") {
           return false;
         }
       }
@@ -141,7 +145,8 @@ function MainBoard() {
 
   return (
     <div>
-      {over ? <Win winner={currentPlayer}></Win> : <></>}
+      {over && <Win winner={currentPlayer} />}
+      {tie && <Tie />}
       <div className={styles.playerX} ref={playerX}>
         <img
           src="cross.svg"
