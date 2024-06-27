@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import SmallBoard from "./SmallBoard";
 import styles from "./MainBoard.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -28,11 +28,23 @@ function MainBoard() {
   const [over, setOver] = useState(false);
   const [tie, setTie] = useState(false);
 
+  useEffect(() => {
+    console.log(board);
+  }, [board]);
+
+  const updateBoard = (newBoard) => {
+    setBoard(newBoard);
+  };
+
+  const updateCurrentBoard = (newBoard) => {
+    setCurrentBoard(newBoard);
+  };
+
   const handleMainBoard = (row, col, current) => {
     const newBoard = board.slice();
     newBoard[row] = board[row].slice();
     newBoard[row][col] = current;
-    setBoard(newBoard);
+    updateBoard(newBoard);
 
     if (checkWin(newBoard)) {
       while (boardRef.current.children.length > 0) {
@@ -53,11 +65,11 @@ function MainBoard() {
 
   const setCurrentSmallBoard = (row, col, flag) => {
     if (board[row][col] !== "" || flag) {
-      setCurrentBoard(trueBoard);
+      updateCurrentBoard(trueBoard);
     } else {
       const tempBoard = falseBoard.slice();
       tempBoard[row][col] = true;
-      setCurrentBoard(tempBoard);
+      updateCurrentBoard(tempBoard);
     }
   };
 

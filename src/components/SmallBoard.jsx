@@ -17,6 +17,10 @@ function SmallBoard({
   const boardRef = useRef(null);
   const [winner, setWinner] = useState(null);
 
+  const updateBoard = (newBoard) => {
+    setBoard(newBoard);
+  };
+
   const handleClick = (row, col) => {
     if (board[row][col] !== "" || winner || !currentBoard) {
       return;
@@ -25,7 +29,7 @@ function SmallBoard({
     const newBoard = board.slice();
     newBoard[row] = board[row].slice();
     newBoard[row][col] = currentPlayer;
-    setBoard(newBoard);
+    updateBoard(newBoard);
 
     if (checkWin(newBoard)) {
       while (boardRef.current.firstChild) {
@@ -34,10 +38,10 @@ function SmallBoard({
 
       const img = document.createElement("img");
       if (currentPlayer === "X") {
-        img.src = "/cross.svg";
+        img.src = "cross.svg";
         img.alt = "X Wins";
       } else {
-        img.src = "/circle.svg";
+        img.src = "circle.svg";
         img.alt = "O Wins";
       }
       img.className = styles.centeredImage;
