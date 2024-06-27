@@ -42,8 +42,12 @@ function SmallBoard({
       }
       img.className = styles.centeredImage;
       boardRef.current.appendChild(img);
-      setMainBoard(rowIndex, colIndex);
+      setMainBoard(rowIndex, colIndex, currentPlayer);
       setCurrentSmallBoard(row, col, true);
+    } else if (checkTie(newBoard)) {
+      setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
+      setMainBoard(rowIndex, colIndex, "T");
+      setCurrentSmallBoard(row, col, false);
     } else {
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
       setCurrentSmallBoard(row, col, false);
@@ -55,6 +59,17 @@ function SmallBoard({
       return true;
     }
     return false;
+  };
+
+  const checkTie = (board) => {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (board[i][j] === "") {
+          return false;
+        }
+      }
+    }
+    return true;
   };
 
   const checkCross = (board) => {

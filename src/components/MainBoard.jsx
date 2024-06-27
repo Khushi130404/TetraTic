@@ -28,10 +28,10 @@ function MainBoard() {
   const [over, setOver] = useState(false);
   const [tie, setTie] = useState(false);
 
-  const handleMainBoard = (row, col) => {
+  const handleMainBoard = (row, col, current) => {
     const newBoard = board.slice();
     newBoard[row] = board[row].slice();
-    newBoard[row][col] = currentPlayer;
+    newBoard[row][col] = current;
     setBoard(newBoard);
 
     if (checkWin(newBoard)) {
@@ -45,7 +45,6 @@ function MainBoard() {
       while (boardRef.current.children.length > 0) {
         boardRef.current.removeChild(boardRef.current.children[0]);
       }
-      // console.log("Tie");
       setTie(true);
       playerX.current.removeChild(playerX.current.firstChild);
       playerO.current.removeChild(playerO.current.firstChild);
@@ -69,7 +68,7 @@ function MainBoard() {
   const checkTie = (board) => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (board[i][j] === "") {
+        if (board[i][j] !== "T") {
           return false;
         }
       }
@@ -78,7 +77,7 @@ function MainBoard() {
   };
 
   const checkCross = (board) => {
-    if (board[0][0] !== "") {
+    if (board[0][0] !== "" && board[0][0] !== "T") {
       let count = 1;
       for (let i = 1; i < 3; i++) {
         if (board[i][i] !== board[0][0]) {
@@ -90,7 +89,7 @@ function MainBoard() {
         return true;
       }
     }
-    if (board[0][2] !== "") {
+    if (board[0][2] !== "" && board[0][2] !== "T") {
       let count = 1;
       for (let i = 1; i < 3; i++) {
         if (board[i][2 - i] !== board[0][2]) {
@@ -107,7 +106,7 @@ function MainBoard() {
 
   const checkRow = (board) => {
     for (let r = 0; r < 3; r++) {
-      if (board[r][0] === "") {
+      if (board[r][0] === "" || board[r][0] === "T") {
         continue;
       }
       let count = 1;
@@ -126,7 +125,7 @@ function MainBoard() {
 
   const checkCol = (board) => {
     for (let c = 0; c < 3; c++) {
-      if (board[0][c] === "") {
+      if (board[0][c] === "" || board[0][c] === "T") {
         continue;
       }
       let count = 1;
