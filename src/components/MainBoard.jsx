@@ -41,7 +41,7 @@ function MainBoard() {
       setOver(true);
       playerX.current.removeChild(playerX.current.firstChild);
       playerO.current.removeChild(playerO.current.firstChild);
-    } else if (checkTie(board)) {
+    } else if (checkTie(newBoard)) {
       while (boardRef.current.children.length > 0) {
         boardRef.current.removeChild(boardRef.current.children[0]);
       }
