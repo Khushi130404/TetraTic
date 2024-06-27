@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import SmallBoard from "./SmallBoard";
 import styles from "./MainBoard.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Win from "./Win";
 
 function MainBoard() {
   const initialBoard = Array.from({ length: 3 }, () =>
@@ -31,18 +32,20 @@ function MainBoard() {
     setBoard(newBoard);
 
     if (checkWin(newBoard)) {
+
       while (boardRef.current.firstChild) {
         boardRef.current.removeChild(boardRef.current.firstChild);
       }
-      const img = document.createElement("img");
-      if (currentPlayer === "X") {
-        img.src = "/cross.svg";
-        img.alt = "X Wins";
-      } else {
-        img.src = "/circle.svg";
-        img.alt = "O Wins";
-      }
-      img.className = styles.centeredImage;
+      
+      const img = document.createElement("Win");
+      // if (currentPlayer === "X") {
+      //   img.src = "/cross.svg";
+      //   img.alt = "X Wins";
+      // } else {
+      //   img.src = "/circle.svg";
+      //   img.alt = "O Wins";
+      // }
+      // img.className = styles.centeredImage;
       boardRef.current.appendChild(img);
       playerX.current.removeChild(playerX.current.firstChild);
       playerO.current.removeChild(playerO.current.firstChild);
