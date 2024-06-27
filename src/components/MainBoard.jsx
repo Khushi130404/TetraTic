@@ -36,17 +36,8 @@ function MainBoard() {
       while (boardRef.current.firstChild) {
         boardRef.current.removeChild(boardRef.current.firstChild);
       }
-      
-      const img = document.createElement("Win");
-      // if (currentPlayer === "X") {
-      //   img.src = "/cross.svg";
-      //   img.alt = "X Wins";
-      // } else {
-      //   img.src = "/circle.svg";
-      //   img.alt = "O Wins";
-      // }
-      // img.className = styles.centeredImage;
-      boardRef.current.appendChild(img);
+      const win = <Win winner={currentPlayer}></Win>;
+      boardRef.current.appendChild(win);
       playerX.current.removeChild(playerX.current.firstChild);
       playerO.current.removeChild(playerO.current.firstChild);
     }
