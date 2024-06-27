@@ -3,6 +3,7 @@ import SmallBoard from "./SmallBoard";
 import styles from "./MainBoard.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Win from "./Win";
+import ReactDOM from "react-dom";
 
 function MainBoard() {
   const initialBoard = Array.from({ length: 3 }, () =>
@@ -24,6 +25,7 @@ function MainBoard() {
   const [currentBoard, setCurrentBoard] = useState(trueBoard);
   const playerX = useRef(null);
   const playerO = useRef(null);
+  const [over, setOver] = useState(false);
 
   const handleMainBoard = (row, col) => {
     const newBoard = board.slice();
@@ -32,12 +34,10 @@ function MainBoard() {
     setBoard(newBoard);
 
     if (checkWin(newBoard)) {
-
-      while (boardRef.current.firstChild) {
-        boardRef.current.removeChild(boardRef.current.firstChild);
+      while (boardRef.current.children.length > 0) {
+        boardRef.current.removeChild(boardRef.current.children[0]);
       }
-      const win = <Win winner={currentPlayer}></Win>;
-      boardRef.current.appendChild(win);
+      setOver(true);
       playerX.current.removeChild(playerX.current.firstChild);
       playerO.current.removeChild(playerO.current.firstChild);
     }
@@ -128,6 +128,7 @@ function MainBoard() {
 
   return (
     <div>
+      {over ? <Win winner={currentPlayer}></Win> : <></>}
       <div className={styles.playerX} ref={playerX}>
         <img
           src="cross.svg"
