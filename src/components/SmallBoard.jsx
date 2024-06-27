@@ -45,6 +45,7 @@ function SmallBoard({
       setMainBoard(rowIndex, colIndex, currentPlayer);
       setCurrentSmallBoard(row, col, true);
     } else if (checkTie(newBoard)) {
+      console.log("Tie");
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
       setMainBoard(rowIndex, colIndex, "T");
       setCurrentSmallBoard(row, col, false);
