@@ -32,31 +32,39 @@ function SmallBoard({
     updateBoard(newBoard);
 
     if (checkWin(newBoard)) {
-      while (boardRef.current.firstChild) {
-        boardRef.current.removeChild(boardRef.current.firstChild);
-      }
-
-      const img = document.createElement("img");
-      if (currentPlayer === "X") {
-        img.src = "cross.svg";
-        img.alt = "X Wins";
-      } else {
-        img.src = "circle.svg";
-        img.alt = "O Wins";
-      }
-      img.className = styles.centeredImage;
-      boardRef.current.appendChild(img);
-      setMainBoard(rowIndex, colIndex, currentPlayer);
-      setCurrentSmallBoard(row, col, true);
+      handleWin(row, col);
     } else if (checkTie(newBoard)) {
       console.log("Tie");
-      setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
-      setMainBoard(rowIndex, colIndex, "T");
-      setCurrentSmallBoard(row, col, false);
+      handleTie(row, col);
     } else {
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
       setCurrentSmallBoard(row, col, false);
     }
+  };
+
+  const handleTie = (row, col) => {
+    setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
+    setMainBoard(rowIndex, colIndex, "T");
+    setCurrentSmallBoard(row, col, false);
+  };
+
+  const handleWin = (row, col) => {
+    while (boardRef.current.firstChild) {
+      boardRef.current.removeChild(boardRef.current.firstChild);
+    }
+
+    const img = document.createElement("img");
+    if (currentPlayer === "X") {
+      img.src = "cross.svg";
+      img.alt = "X Wins";
+    } else {
+      img.src = "circle.svg";
+      img.alt = "O Wins";
+    }
+    img.className = styles.centeredImage;
+    boardRef.current.appendChild(img);
+    setMainBoard(rowIndex, colIndex, currentPlayer);
+    setCurrentSmallBoard(row, col, true);
   };
 
   const checkWin = (board) => {
