@@ -29,15 +29,13 @@ function MainBoard() {
   const [tie, setTie] = useState(false);
 
   useEffect(() => {
-    console.log("Board updated:", board);
-  }, [board]);
-
-  const updateBoard = (newBoard) => {
-    setBoard([...newBoard]); // Ensure immutability and trigger re-render
-  };
+    //console.log("Board updated:", board);
+    console.log(currentBoard);
+  }, [board, currentBoard]);
 
   const updateCurrentBoard = (newBoard) => {
-    setCurrentBoard([...newBoard]);
+    const updatedBoard = [...newBoard];
+    setCurrentBoard(updatedBoard);
   };
 
   const handleMainBoard = (row, col, current) => {
@@ -47,11 +45,10 @@ function MainBoard() {
           ? r.map((cell, colIndex) => (colIndex === col ? current : cell))
           : r
       );
-      console.log("New board in handleMainBoard:", newBoard);
+      //console.log("New board in handleMainBoard:", newBoard);
       return newBoard;
     });
 
-    // Delay checking to ensure board state is updated
     setTimeout(() => {
       const newBoard = board.map((r, rowIndex) =>
         rowIndex === row
@@ -77,13 +74,15 @@ function MainBoard() {
   };
 
   const setCurrentSmallBoard = (row, col, flag) => {
-    if (board[row][col] !== "" || flag) {
-      updateCurrentBoard(trueBoard);
-    } else {
-      const tempBoard = falseBoard.slice();
-      tempBoard[row][col] = true;
-      updateCurrentBoard(tempBoard);
-    }
+    setTimeout(() => {
+      if (board[row][col] !== "" || flag) {
+        updateCurrentBoard(trueBoard);
+      } else {
+        const tempBoard = falseBoard.slice();
+        tempBoard[row][col] = true;
+        updateCurrentBoard(tempBoard);
+      }
+    });
   };
 
   const checkWin = (board) => {
