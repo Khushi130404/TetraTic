@@ -29,38 +29,51 @@ function MainBoard() {
   const [tie, setTie] = useState(false);
 
   useEffect(() => {
-    console.log(board);
+    console.log("Board updated:", board);
   }, [board]);
 
   const updateBoard = (newBoard) => {
-    setBoard(newBoard);
+    setBoard([...newBoard]); // Ensure immutability and trigger re-render
   };
 
   const updateCurrentBoard = (newBoard) => {
-    setCurrentBoard(newBoard);
+    setCurrentBoard([...newBoard]);
   };
 
   const handleMainBoard = (row, col, current) => {
-    const newBoard = board.slice();
-    newBoard[row] = board[row].slice();
-    newBoard[row][col] = current;
-    updateBoard(newBoard);
+    setBoard((prevBoard) => {
+      const newBoard = prevBoard.map((r, rowIndex) =>
+        rowIndex === row
+          ? r.map((cell, colIndex) => (colIndex === col ? current : cell))
+          : r
+      );
+      console.log("New board in handleMainBoard:", newBoard);
+      return newBoard;
+    });
 
-    if (checkWin(newBoard)) {
-      while (boardRef.current.children.length > 0) {
-        boardRef.current.removeChild(boardRef.current.children[0]);
+    // Delay checking to ensure board state is updated
+    setTimeout(() => {
+      const newBoard = board.map((r, rowIndex) =>
+        rowIndex === row
+          ? r.map((cell, colIndex) => (colIndex === col ? current : cell))
+          : r
+      );
+      if (checkWin(newBoard)) {
+        while (boardRef.current.children.length > 0) {
+          boardRef.current.removeChild(boardRef.current.children[0]);
+        }
+        setOver(true);
+        playerX.current.removeChild(playerX.current.firstChild);
+        playerO.current.removeChild(playerO.current.firstChild);
+      } else if (checkTie(newBoard)) {
+        while (boardRef.current.children.length > 0) {
+          boardRef.current.removeChild(boardRef.current.children[0]);
+        }
+        setTie(true);
+        playerX.current.removeChild(playerX.current.firstChild);
+        playerO.current.removeChild(playerO.current.firstChild);
       }
-      setOver(true);
-      playerX.current.removeChild(playerX.current.firstChild);
-      playerO.current.removeChild(playerO.current.firstChild);
-    } else if (checkTie(newBoard)) {
-      while (boardRef.current.children.length > 0) {
-        boardRef.current.removeChild(boardRef.current.children[0]);
-      }
-      setTie(true);
-      playerX.current.removeChild(playerX.current.firstChild);
-      playerO.current.removeChild(playerO.current.firstChild);
-    }
+    }, 0);
   };
 
   const setCurrentSmallBoard = (row, col, flag) => {
@@ -164,24 +177,24 @@ function MainBoard() {
           className={
             currentPlayer === "X" ? styles.currentplayer : styles.nonplayer
           }
-        ></img>
+        />
       </div>
       <div className={styles.board} ref={boardRef} src={winner}>
         <h2>Ultimate Tic-Tac-Toe</h2>
-        <br></br>
+        <br />
         {board.map((row, rowIndex) => (
           <div className={styles.row} key={rowIndex}>
-            {row.map((cell, col) => (
+            {row.map((cell, colIndex) => (
               <SmallBoard
-                key={col}
+                key={colIndex}
                 currentPlayer={currentPlayer}
                 setCurrentPlayer={setCurrentPlayer}
                 setMainBoard={handleMainBoard}
                 rowIndex={rowIndex}
-                colIndex={col}
-                currentBoard={currentBoard[rowIndex][col]}
+                colIndex={colIndex}
+                currentBoard={currentBoard[rowIndex][colIndex]}
                 setCurrentSmallBoard={setCurrentSmallBoard}
-              ></SmallBoard>
+              />
             ))}
           </div>
         ))}
@@ -192,7 +205,7 @@ function MainBoard() {
           className={
             currentPlayer === "O" ? styles.currentplayer : styles.nonplayer
           }
-        ></img>
+        />
       </div>
     </div>
   );
