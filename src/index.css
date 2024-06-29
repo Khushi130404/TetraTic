@@ -16,15 +16,15 @@ body {
 
 @keyframes pulse {
   0% {
-    background-color: lightsteelblue;
+    background-color: #E3DFFD;
   }
   25% {
-    background-color: #ede4ff;
-  }
-  75% {
     background-color: #e5d4ff;
   }
+  75% {
+    background-color: aliceblue;
+  }
   100% {
-    background-color: #fdcedf;
+    background-color: #DEC8ED;
   }
 }

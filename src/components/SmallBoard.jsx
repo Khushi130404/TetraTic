@@ -17,6 +17,10 @@ function SmallBoard({
   const boardRef = useRef(null);
   const [winner, setWinner] = useState(null);
 
+  const updateBoard = (newBoard) => {
+    setBoard(newBoard);
+  };
+
   const handleClick = (row, col) => {
     if (board[row][col] !== "" || winner || !currentBoard) {
       return;
@@ -25,29 +29,42 @@ function SmallBoard({
     const newBoard = board.slice();
     newBoard[row] = board[row].slice();
     newBoard[row][col] = currentPlayer;
-    setBoard(newBoard);
+    updateBoard(newBoard);
 
     if (checkWin(newBoard)) {
-      while (boardRef.current.firstChild) {
-        boardRef.current.removeChild(boardRef.current.firstChild);
-      }
-
-      const img = document.createElement("img");
-      if (currentPlayer === "X") {
-        img.src = "/cross.svg";
-        img.alt = "X Wins";
-      } else {
-        img.src = "/circle.svg";
-        img.alt = "O Wins";
-      }
-      img.className = styles.centeredImage;
-      boardRef.current.appendChild(img);
-      setMainBoard(rowIndex, colIndex);
-      setCurrentSmallBoard(row, col, true);
+      handleWin(row, col);
+    } else if (checkTie(newBoard)) {
+      console.log("Tie");
+      handleTie(row, col);
     } else {
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
       setCurrentSmallBoard(row, col, false);
     }
+  };
+
+  const handleTie = (row, col) => {
+    setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
+    setMainBoard(rowIndex, colIndex, "T");
+    setCurrentSmallBoard(row, col, false);
+  };
+
+  const handleWin = (row, col) => {
+    while (boardRef.current.firstChild) {
+      boardRef.current.removeChild(boardRef.current.firstChild);
+    }
+
+    const img = document.createElement("img");
+    if (currentPlayer === "X") {
+      img.src = "cross.svg";
+      img.alt = "X Wins";
+    } else {
+      img.src = "circle.svg";
+      img.alt = "O Wins";
+    }
+    img.className = styles.centeredImage;
+    boardRef.current.appendChild(img);
+    setMainBoard(rowIndex, colIndex, currentPlayer);
+    setCurrentSmallBoard(row, col, true);
   };
 
   const checkWin = (board) => {
@@ -55,6 +72,17 @@ function SmallBoard({
       return true;
     }
     return false;
+  };
+
+  const checkTie = (board) => {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (board[i][j] === "") {
+          return false;
+        }
+      }
+    }
+    return true;
   };
 
   const checkCross = (board) => {
