@@ -1,4 +1,4 @@
-# TetraTic
+# ❌ TetraTic ⭕
 
 TetraTic is an **Ultimate Tic-Tac-Toe** game built using **React + Vite**. It takes the classic Tic-Tac-Toe to the next level with a **9×9 grid** divided into **9 smaller 3×3 boards**, making the gameplay more strategic and exciting.
 
@@ -28,7 +28,6 @@ TetraTic follows the rules of **Ultimate Tic-Tac-Toe**, where each move determin
    - The game is won by the player who wins **3 small boards in a row**, similar to classic Tic-Tac-Toe.
    - If all small boards are filled and no player has won, the game ends in a **tie**.
 
----
 
 ## 🏗️ Components
 The project is structured into the following components:
@@ -49,24 +48,21 @@ The project is structured into the following components:
 
 
 ## 📦 Setup & Installation
+
+```bash
 ### Clone the repository:
-\`\`\`bash
-git clone https://github.com/yourusername/TetraTic.git
+git clone https://github.com/Khushi130404/TetraTic.git
 cd TetraTic
-\`\`\`
 
 ### Install dependencies:
-\`\`\`bash
 npm install
-\`\`\`
 
 ### Run the development server:
-\`\`\`bash
 npm run dev
-\`\`\`bash
 
 ### Open the project in your browser:
-\`\`\`bash
+http://localhost:3000
+```
 
 ## 🎮 Play & Enjoy!
 Test your strategy skills and challenge your friends in **TetraTic**, the next level of Tic-Tac-Toe! 🚀
