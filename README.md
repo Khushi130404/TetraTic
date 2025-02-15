@@ -1,10 +1,3 @@
-# Ultimate-tic-tac-toe
+# TetraTic
 
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+TetraTic is an Ultimate Tic-Tac-Toe game built using React + Vite. It takes the classic Tic-Tac-Toe to the next level with a 9×9 grid divided into 9 smaller 3×3 boards, making the gameplay more strategic and exciting.
