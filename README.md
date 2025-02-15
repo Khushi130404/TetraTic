@@ -33,3 +33,24 @@ TetraTic is an Ultimate Tic-Tac-Toe game built using React + Vite. It takes the 
 - The game is won by the player who wins 3 small boards in a row, similar to classic Tic-Tac-Toe.
 - If all small boards are filled and no player has won, the game ends in a tie.
 
+## 🏗️ Components
+
+🔹 MainBoard
+
+- The overall 9×9 board containing 9 instances of SmallBoard.
+- Handles game logic, turn switching, and win conditions.
+
+🔹 SmallBoard
+
+- A single 3×3 board, representing one section of the MainBoard.
+- Keeps track of individual small board wins.
+
+🔹 Tie
+
+- Displays the result when the game ends in a tie.
+
+🔹 Win
+
+- Handles and displays the final winner when a player wins the game.
+
+
